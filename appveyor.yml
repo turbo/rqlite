@@ -17,7 +17,7 @@ install:
 build_script:
   - go get ./...
   - go build -i ./...
-  - go test -v ./... | $GOPATH\bin\go2xunit.exe > xunit-results.xml
+  - go test -v ./... | %GOPATH%\bin\go2xunit.exe > xunit-results.xml
 
 after_build:
   - $wc = New-Object 'System.Net.WebClient'

@@ -12,13 +12,16 @@ install:
   - if %BUILD_ENV%==gnu  set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin\;%PATH%
   - if %BUILD_ENV%==gnu  set MSYSTEM=MINGW64
   - if %BUILD_ENV%==gnu  set MSYS=winsymlinks=lnk
+  - go get github.com/tebeka/go2xunit
 
 build_script:
   - go get ./...
   - go build -i ./...
-  - go test -v ./...
+  - go test -v ./... | $GOPATH\bin\go2xunit.exe > xunit-results.xml
 
 after_build:
+  - $wc = New-Object 'System.Net.WebClient'
+  - $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\xunit-results.xml))
   - 7z a rqlite-latest-win64.zip %GOPATH%\bin\rq*.exe
 
 artifacts:

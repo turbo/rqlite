@@ -310,7 +310,7 @@ func Test_SingleNodeLoadEmpty(t *testing.T) {
 
 	dump := ``
 	_, err := s.Execute([]string{dump}, false, false)
-	if err = nil {
+	if err != nil {
 		t.Fatalf("failed to load empty dump: %s", err.Error())
 	}
 }

@@ -22,7 +22,7 @@ build_script:
 after_build:
   - ps: $wc = New-Object 'System.Net.WebClient'
   - ps: $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\junit-results.xml))
-  - 7z a rqlite-latest-win64.zip %GOPATH%\bin\rq*.exe
+  - 7z a rqlite-latest-win64.zip -y -bsp0 -bso0 %GOPATH%\bin\rq*.exe
 
 artifacts:
   - path: rqlite-latest-win64.zip

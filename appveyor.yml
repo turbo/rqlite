@@ -18,7 +18,6 @@ build_script:
   - go get ./...
   - go build -i ./...
   - go test -v ./... | %GOPATH%\bin\go2xunit.exe > junit-results.xml
-  - type xunit-results.xml
 
 after_build:
   - ps: $wc = New-Object 'System.Net.WebClient'
